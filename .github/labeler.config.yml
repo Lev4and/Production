@@ -1,0 +1,13 @@
+docker:
+  - "*/**/Dockerfile"
+  - "docker-compose.yml"
+
+production:
+  - "*/**/*.sh"
+  - ".env.dist"
+  - "nginx.conf"
+  - "*/**/Dockerfile"
+  - "docker-compose.yml"
+
+github:
+  - ".github/**/*"
