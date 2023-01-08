@@ -1,0 +1,28 @@
+name: Docker Stack Deploy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Docker Stack Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect to server and docker stack deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            whoami
+            cd /var/var/
+            mkdir projects
+            cd projects
+            git clone https://github.com/Lev4and/Production.git
+            cd Production
+            bash productionInit.sh
