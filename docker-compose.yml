@@ -98,7 +98,7 @@ services:
     volumes:
       - ./mongodb-data:/data/db
     ports:
-      - ${MONGODB_PORT}:27017
+      - 27017:27017
 
   mongo-express:
     image: mongo-express:latest
@@ -110,7 +110,6 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_ROOT_PASSWORD}
       ME_CONFIG_MONGODB_PORT: ${MONGODB_PORT}
       ME_CONFIG_MONGODB_SERVER: ${MONGODB_SERVER}
-      ME_CONFIG_MONGODB_URL: ${MONGODB_SERVER_URL}
     ports:
       - "8081:8081"
 
