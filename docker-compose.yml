@@ -159,8 +159,6 @@ services:
 
   dozzle:
     image: amir20/dozzle
-    environment:
-      DOZZLE_BASE: ${DOZZLE_BASE}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
