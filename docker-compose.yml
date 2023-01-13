@@ -6,14 +6,14 @@ services:
     ports:
       - "5002:80"
     environment:
-      ASPNETCORE_POSTGRES_DB_SERVER: ${POSTGRES_SERVER}
-      ASPNETCORE_POSTGRES_DB_SERVER_PORT: ${POSTGRES_PORT}
-      ASPNETCORE_POSTGRES_DB_NAME: ${INVESTING_POSTGRES_DB_NAME}
-      ASPNETCORE_POSTGRES_DB_USER: ${POSTGRES_USER}
-      ASPNETCORE_POSTGRES_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      ASPNETCORE_SEQ_SERVER: ${INVESTING_BACKEND_SEQ_SERVER}
-      ASPNETCORE_SWAGGER_SERVER: ${INVESTING_BACKEND_URL}
-      ASPNETCORE_BACKEND_PATH_URL: ${INVESTING_BACKEND_URL_PATH}
+      POSTGRES_SERVER: ${POSTGRES_SERVER}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DB_NAME: ${INVESTING_POSTGRES_DB_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      SEQ_SERVER: ${INVESTING_BACKEND_SEQ_SERVER}
+      BACKEND_URL: ${INVESTING_BACKEND_URL}
+      BACKEND_URL_PATH: ${INVESTING_BACKEND_URL_PATH}
 
   investing-backend-seq:
     image: datalust/seq:latest
@@ -27,14 +27,14 @@ services:
     ports:
       - "5003:80"
     environment:
-      ASPNETCORE_POSTGRES_DB_SERVER: ${POSTGRES_SERVER}
-      ASPNETCORE_POSTGRES_DB_SERVER_PORT: ${POSTGRES_PORT}
-      ASPNETCORE_POSTGRES_DB_NAME: ${INVESTING_POSTGRES_TEST_DB_NAME}
-      ASPNETCORE_POSTGRES_DB_USER: ${POSTGRES_USER}
-      ASPNETCORE_POSTGRES_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      ASPNETCORE_SEQ_SERVER: ${INVESTING_BACKEND_TEST_SEQ_SERVER}
-      ASPNETCORE_SWAGGER_SERVER: ${INVESTING_BACKEND_TEST_URL}
-      ASPNETCORE_BACKEND_PATH_URL: ${INVESTING_BACKEND_TEST_URL_PATH}
+      POSTGRES_SERVER: ${POSTGRES_SERVER}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DB_NAME: ${INVESTING_POSTGRES_TEST_DB_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      SEQ_SERVER: ${INVESTING_BACKEND_TEST_SEQ_SERVER}
+      BACKEND_URL: ${INVESTING_BACKEND_TEST_URL}
+      BACKEND_URL_PATH: ${INVESTING_BACKEND_TEST_URL_PATH}
 
   investing-backend-test-seq:
     image: datalust/seq:latest
@@ -42,6 +42,32 @@ services:
       - ACCEPT_EULA=Y
     ports:
       - "5345:80"
+
+  investing-importer:
+    image: ghcr.io/lev4and/investing/importer-console-app:latest
+    environment:
+      SEQ_SERVER: ${INVESTING_IMPORTER_SEQ_SERVER}
+      BACKEND_URL_PATH: ${INVESTING_BACKEND_URL_PATH}
+
+  investing-importer-seq:
+    image: datalust/seq:latest
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "5346:80"
+
+  investing-importer-test:
+    image: ghcr.io/lev4and/investing/importer-console-app:test-latest
+    environment:
+      SEQ_SERVER: ${INVESTING_IMPORTER_TEST_SEQ_SERVER}
+      BACKEND_URL_PATH: ${INVESTING_BACKEND_TEST_URL_PATH}
+  
+  investing-importer-test-seq:
+    image: datalust/seq:latest
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "5347:80"
 
   investing-frontend:
     image: ghcr.io/lev4and/investing/vue-js-app:latest
