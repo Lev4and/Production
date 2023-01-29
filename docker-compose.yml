@@ -1,6 +1,46 @@
 version: '3.4'
 
 services:
+  tic-tak-toe-backend:
+    image: ghcr.io/lev4and/tictaktoe/web-app:latest
+    ports:
+      - "5002:80"
+    environment:
+      SEQ_SERVER: ${TICTAKTOE_BACKEND_SEQ_SERVER}
+      BACKEND_URL: ${TICTAKTOE_BACKEND_URL}
+
+  tic-tak-toe-backend-seq:
+    image: datalust/seq:latest
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "5344:80"
+
+  tic-tak-toe-backend-test:
+    image: ghcr.io/lev4and/tictaktoe/web-app:test-latest
+    ports:
+      - "5003:80"
+    environment:
+      SEQ_SERVER: ${TICTAKTOE_BACKEND_TEST_SEQ_SERVER}
+      BACKEND_URL: ${TICTAKTOE_BACKEND_TEST_URL}
+
+  tic-tak-toe-backend-test-seq:
+    image: datalust/seq:latest
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "5345:80"
+
+  tic-tak-toe-frontend:
+    image: ghcr.io/lev4and/tictaktoe/vue-js-app:latest
+    ports:
+      - "5004:8080"
+
+  tic-tak-toe-frontend-test:
+    image: ghcr.io/lev4and/tictaktoe/vue-js-app:test-latest
+    ports:
+      - "5005:8080"
+
   postgres:
     image: postgres:latest
     restart: always
