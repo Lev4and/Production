@@ -18,7 +18,6 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             whoami
-            cd /var/var/
             mkdir projects
             cd projects
             git clone https://github.com/Lev4and/Production.git
