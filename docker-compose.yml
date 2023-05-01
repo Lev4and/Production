@@ -11,7 +11,7 @@ services:
       QUIK_PASSWORD: ${QUIK_BCS_PASSWORD}
       WAIT_BEFORE_LOGIN: ${QUIK_WAIT_BEFORE_LOGIN}
     ports:
-      - ${QUIK_BCS_PORT}:5900
+      - 5900:5900
 
 
   postgres:
@@ -24,7 +24,7 @@ services:
       - ./${POSTGRES_DATA_DIR}:/var/lib/postgresql/data
       - ./${POSTGRES_SCRIPTS_DIR}:/docker-entrypoint-initdb.d
     ports:
-      - ${POSTGRES_PORT}:5432
+      - 5432:5432
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -49,7 +49,7 @@ services:
     volumes:
       - ./mongodb-data:/data/db
     ports:
-      - ${MONGODB_PORT}:27017
+      - 27017:27017
 
   mongo-express:
     image: mongo-express:latest
