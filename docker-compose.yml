@@ -1,17 +1,6 @@
 version: '3.4'
 
 services:
-  quik-bcs:
-    image: ghcr.io/lev4and/tradingbot/quik-bcs:latest
-    environment:
-      DISPLAY_RESOLUTION: ${QUIK_DISPLAY_RESOLUTION}
-      ENABLE_VNC: ${QUIK_ENABLE_VNC}
-      VNC_PASSWORD: ${QUIK_BCS_VNC_PASSWORD}
-    ports:
-      - 5900:5900
-      - 34130:34130
-
-
   postgres:
     image: postgres:latest
     restart: always
